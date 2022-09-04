@@ -3,6 +3,12 @@ const schema=new Schema({
     videoId:{
           type:String
     },
+    mRSS:{
+          type:String
+    },
+    mRSS2:{
+          type:String
+    },
         data:{
               type:Object  
         }
