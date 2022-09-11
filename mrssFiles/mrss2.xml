@@ -1,0 +1,86 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:media="http://search.yahoo.com/mrss/"
+     xmlns:openSearch="http://a9.com/-/spec/opensearchrss/1.0/"
+     xmlns:dfpvideo="http://api.google.com/dfpvideo"
+     xmlns:tms="http://data.tmsapi.com/v1.1"
+     version="2.0">
+      <channel>
+        <title>ViralBear videos</title>
+        <dfpvideo:version>2</dfpvideo:version>        <item>
+          <media:title>The boy was very angry that he was not given ice cream!</media:title>
+          <media:description>The author: "The video was on playground. Like any other Turkish ice cream when the seller is being attracted to a small child who gets angry and steps on it"
+
+Credit to: @playboi.ken69</media:description>
+          <media:keywords>child, funny, turkey, ice cream</media:keywords>
+          <media:city>123</media:city>
+          <media:country>Turkey</media:country>
+          <media:category>Funny</media:category>
+          <media:filmingDate>2022-07-05</media:filmingDate>
+          <guid>951 </guid>
+          <media:youtubeLink>https://youtube.com/shorts/NKNk1p27hQs</media:youtubeLink>
+          <pubDate>Thu, 08 Sep 2022 14:32:38 GMT</pubDate>
+          <media:thumbnail url="https://viralbear.storage.yandexcloud.net/images/18c95e20-29cd-4498-9f02-bb8724847cdd.jpg" />
+          <media:content url="https://viralbear.storage.yandexcloud.net/images/b8397e10-4eb9-4bd7-9121-9b706f968be0.mp4" />
+          <dfpvideo:lastModifiedDate>Thu, 08 Sep 2022 14:34:03 GMT</dfpvideo:lastModifiedDate>
+          <dfpvideo:lastMediaModifiedDate>Thu, 08 Sep 2022 14:34:03 GMT</dfpvideo:lastMediaModifiedDate>
+        </item>        <item>
+          <media:title>Mother and her son accidentally knocked down their friend!</media:title>
+          <media:description>2 July 2022, Bandung, West Java, Indonesia
+
+Woman Mitha along with her son Faeyza (4 y.o) accidentally knocked down their friend  while rolling on a hill.
+
+Credit to: @agungmitha15</media:description>
+          <media:keywords>fail , girl ,funny</media:keywords>
+          <media:city>Bandung, West Java</media:city>
+          <media:country>Indonesia</media:country>
+          <media:category>Fails</media:category>
+          <media:filmingDate>2022-07-05</media:filmingDate>
+          <guid>954 </guid>
+          <media:youtubeLink>https://youtube.com/shorts/jy8OC8eZv3I</media:youtubeLink>
+          <pubDate>Thu, 08 Sep 2022 15:46:56 GMT</pubDate>
+          <media:thumbnail url="https://viralbear.storage.yandexcloud.net/images/21d493bb-721f-41d0-8ec9-fdbd965d299c.jpg" />
+          <media:content url="https://viralbear.storage.yandexcloud.net/images/5e4bb503-631c-48ed-9ee2-3865770f988d.mp4" />
+          <dfpvideo:lastModifiedDate>Thu, 08 Sep 2022 15:47:56 GMT</dfpvideo:lastModifiedDate>
+          <dfpvideo:lastMediaModifiedDate>Thu, 08 Sep 2022 15:47:56 GMT</dfpvideo:lastMediaModifiedDate>
+        </item>        <item>
+          <media:title>The girl did not notice the saleswoman in the store. Fail!</media:title>
+          <media:description>6 August 2022, Tangerang, Banten, Indonesia
+
+The girl did not notice the saleswoman in the store. Fail!
+
+Credit to: @memberada</media:description>
+          <media:keywords>fail ,girl ,store ,funny</media:keywords>
+          <media:city>Tangerang, Banten</media:city>
+          <media:country>Indonesia</media:country>
+          <media:category>Fails</media:category>
+          <media:filmingDate>2022-08-06</media:filmingDate>
+          <guid>955 </guid>
+          <media:youtubeLink>https://youtube.com/shorts/r2qEKoFE_jQ</media:youtubeLink>
+          <pubDate>Thu, 08 Sep 2022 16:01:15 GMT</pubDate>
+          <media:thumbnail url="https://viralbear.storage.yandexcloud.net/images/9b0aaaf8-c8b4-4319-a152-3a46c1439f7a.jpg" />
+          <media:content url="https://viralbear.storage.yandexcloud.net/images/12aadb1b-10ec-4141-8193-41503208e19c.mp4" />
+          <dfpvideo:lastModifiedDate></dfpvideo:lastModifiedDate>
+          <dfpvideo:lastMediaModifiedDate></dfpvideo:lastMediaModifiedDate>
+        </item>        <item>
+          <media:title>6 year old girl from Indonesia masterfully plays the piano!</media:title>
+          <media:description>2 August 2022, Jakarta, Indonesia
+
+Quinnara Jiva Askana (6 yo). Learned piano from the age of 3.5 years. She's been playing the piano for 2.5 years now.
+
+Not only proficient in playing the piano, Quinnara is also sensitive to the notes produced by the sound of the piano. Quinnara is able to guess very well by hitting one of the notes at random.
+
+Credit to: @quinn.jiva</media:description>
+          <media:keywords>girl ,piano ,cool</media:keywords>
+          <media:city>Jakarta</media:city>
+          <media:country>Indonesia</media:country>
+          <media:category>Cool</media:category>
+          <media:filmingDate>2022-08-02</media:filmingDate>
+          <guid>956 </guid>
+          <media:youtubeLink>https://youtube.com/shorts/Z7xKhwknTbs</media:youtubeLink>
+          <pubDate>Thu, 08 Sep 2022 16:30:46 GMT</pubDate>
+          <media:thumbnail url="https://viralbear.storage.yandexcloud.net/images/82db99a5-0f99-45b8-b2c3-88c694c48a1d.jpg" />
+          <media:content url="https://viralbear.storage.yandexcloud.net/images/c40b91e6-34ce-4af8-a5c8-5796bad255ee.mp4" />
+          <dfpvideo:lastModifiedDate></dfpvideo:lastModifiedDate>
+          <dfpvideo:lastMediaModifiedDate></dfpvideo:lastMediaModifiedDate>
+        </item></channel>
+        </rss>

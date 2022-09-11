@@ -15,6 +15,21 @@ const jwt = require('jsonwebtoken')
 const User=require("./user/User")
 const fileMiddleware=require("./multer/file")
 const {check, validationResult} = require('express-validator')
+app.use(express.static('mrssFiles'));
+
+app.use(function(req, res, next) {
+
+
+  res.header("Access-Control-Allow-Origin","https://viralbear.media"); // update to match the domain you will make the request from
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+      next();
+  
+
+  
+  });
+
+
+
 
 
 
@@ -29,7 +44,7 @@ var s3 = new EasyYandexS3({
 });
 
 
-let PORT=process.env.PORT || 5000
+let PORT=process.env.PORT || 8888
 const filePath2=path.join(__dirname,"localstorage","localstorage.txt")
 app.use(express.json({extended:true}))
 app.set('view engine','ejs')
@@ -118,7 +133,16 @@ app.post('/changeVideo',fileMiddleware.single('video'),async(req,res)=>{
 app.post('/changeData',(req,res)=>{
     console.log(req.body)
     const date=new Date()
+    
+   let changeDate
 
+if(req.body.changeDate.includes('-')){
+      const dateDeform=String(new Date(req.body.changeDate)).split(' ')
+      changeDate=`${dateDeform[0]}, ${dateDeform[2]} ${dateDeform[1]} ${dateDeform[3]}`
+}
+else{
+  changeDate=req.body.changeDate
+}
     
     Video.updateOne({_id:req.body.id}, {data:{
       title:req.body.changeTitle,
@@ -127,13 +151,13 @@ app.post('/changeData',(req,res)=>{
       city:req.body.changeCity,
       country:req.body.changeCountry,
       category:req.body.changeCategory,
-      date:req.body.changeDate,
+      date:changeDate,
       videoId:req.body.changeVideoId,
       videoLink:req.body.changeVideoLink,
       downloadPhoto:req.body.changeDownloadPhoto,
       downloadVideo:req.body.changeDownloadVideo,
       lastModif:date.toGMTString(),
-      brandSafe:req.body.brandSafe,
+      brandSafe:req.body.brandSafeUpdate,
       videoCreateDate:req.body.videoCreateDate
       
       
@@ -141,20 +165,23 @@ app.post('/changeData',(req,res)=>{
       console.log("Изменено")
     })
 
-    if (req.body.brandSafe){
+    if (req.body.brandSafeUpdate){
  
-      Video.updateOne({_id:req.body.id},{mRSS:`        <item>\n          <media:title>${req.body.changeTitle}</media:title>\n          <media:description>${req.body.changeDescription}</media:description>\n          <media:keywords>${req.body.changeTags}</media:keywords>\n          <media:city>${req.body.changeCity}</media:city>\n          <media:country>${req.body.changeCountry}</media:country>\n          <media:category>${req.body.changeCategory}</media:category>\n          <media:filmingDate>${req.body.changeDate}</media:filmingDate>\n          <guid>${req.body.changeVideoId} </guid>\n          <media:youtubeLink>${req.body.changeVideoLink}</media:youtubeLink>\n          <pubDate>${req.body.videoCreateDate}</pubDate>\n          <media:thumbnail url="${req.body.changeDownloadPhoto}" />\n          <media:content url="${req.body.changeDownloadVideo}" />\n          <dfpvideo:lastModifiedDate>${date.toGMTString()}</dfpvideo:lastModifiedDate>\n          <dfpvideo:lastMediaModifiedDate>${date.toGMTString()}</dfpvideo:lastMediaModifiedDate>\n        </item>`},()=>{
+      Video.updateOne({_id:req.body.id},{mRSS:`        <item>          <media:title>${req.body.changeTitle}</media:title>          <media:description>${req.body.changeDescription}</media:description>          <media:keywords>${req.body.changeTags}</media:keywords>          <media:city>${req.body.changeCity}</media:city>          <media:country>${req.body.changeCountry}</media:country>          <media:category>${req.body.changeCategory}</media:category>          <media:filmingDate>${changeDate}</media:filmingDate>          <guid>${req.body.changeVideoId} </guid>          <media:youtubeLink>${req.body.changeVideoLink}</media:youtubeLink>          <pubDate>${req.body.videoCreateDate}</pubDate>          <media:thumbnail url="${req.body.changeDownloadPhoto}" />          <media:content url="${req.body.changeDownloadVideo}" />          <dfpvideo:lastModifiedDate>${date.toGMTString()}</dfpvideo:lastModifiedDate>                  </item>`},()=>{
         console.log("Изменено MRSS")
       })
-      Video.updateOne({_id:req.body.id},{mRSS2:`        <item>\n          <media:title>${req.body.changeTitle}</media:title>\n          <media:description>${req.body.changeDescription}</media:description>\n          <media:keywords>${req.body.changeTags}</media:keywords>\n          <media:city>${req.body.changeCity}</media:city>\n          <media:country>${req.body.changeCountry}</media:country>\n          <media:category>${req.body.changeCategory}</media:category>\n          <media:filmingDate>${req.body.changeDate}</media:filmingDate>\n          <guid>${req.body.changeVideoId} </guid>\n          <media:youtubeLink>${req.body.changeVideoLink}</media:youtubeLink>\n          <pubDate>${req.body.videoCreateDate}</pubDate>\n          <media:thumbnail url="${req.body.changeDownloadPhoto}" />\n          <media:content url="${req.body.changeDownloadVideo}" />\n          <dfpvideo:lastModifiedDate>${date.toGMTString()}</dfpvideo:lastModifiedDate>\n          <dfpvideo:lastMediaModifiedDate>${date.toGMTString()}</dfpvideo:lastMediaModifiedDate>\n        </item>`},()=>{
+      Video.updateOne({_id:req.body.id},{mRSS2:`        <item>          <media:title>${req.body.changeTitle}</media:title>          <media:description>${req.body.changeDescription}</media:description>          <media:keywords>${req.body.changeTags}</media:keywords>          <media:city>${req.body.changeCity}</media:city>          <media:country>${req.body.changeCountry}</media:country>          <media:category>${req.body.changeCategory}</media:category>          <media:filmingDate>${changeDate}</media:filmingDate>          <guid>${req.body.changeVideoId} </guid>          <media:youtubeLink>${req.body.changeVideoLink}</media:youtubeLink>          <pubDate>${req.body.videoCreateDate}</pubDate>          <media:thumbnail url="${req.body.changeDownloadPhoto}" />          <media:content url="${req.body.changeDownloadVideo}" />          <dfpvideo:lastModifiedDate>${date.toGMTString()}</dfpvideo:lastModifiedDate>                  </item>`},()=>{
         console.log("Изменено MRSS2")
       })
 
 
     }
     else{
-      Video.updateOne({_id:req.body.id},{mRSS:`        <item>\n          <media:title>${req.body.changeTitle}</media:title>\n          <media:description>${req.body.changeDescription}</media:description>\n          <media:keywords>${req.body.changeTags}</media:keywords>\n          <media:city>${req.body.changeCity}</media:city>\n          <media:country>${req.body.changeCountry}</media:country>\n          <media:category>${req.body.changeCategory}</media:category>\n          <media:filmingDate>${req.body.changeDate}</media:filmingDate>\n          <guid>${req.body.changeVideoId} </guid>\n          <media:youtubeLink>${req.body.changeVideoLink}</media:youtubeLink>\n          <pubDate>${req.body.videoCreateDate}</pubDate>\n          <media:thumbnail url="${req.body.changeDownloadPhoto}" />\n          <media:content url="${req.body.changeDownloadVideo}" />\n          <dfpvideo:lastModifiedDate>${date.toGMTString()}</dfpvideo:lastModifiedDate>\n          <dfpvideo:lastMediaModifiedDate>${date.toGMTString()}</dfpvideo:lastMediaModifiedDate>\n        </item>`},()=>{
+      Video.updateOne({_id:req.body.id},{mRSS:`        <item>          <media:title>${req.body.changeTitle}</media:title>          <media:description>${req.body.changeDescription}</media:description>          <media:keywords>${req.body.changeTags}</media:keywords>          <media:city>${req.body.changeCity}</media:city>          <media:country>${req.body.changeCountry}</media:country>          <media:category>${req.body.changeCategory}</media:category>          <media:filmingDate>${changeDate}</media:filmingDate>          <guid>${req.body.changeVideoId} </guid>          <media:youtubeLink>${req.body.changeVideoLink}</media:youtubeLink>          <pubDate>${req.body.videoCreateDate}</pubDate>          <media:thumbnail url="${req.body.changeDownloadPhoto}" />          <media:content url="${req.body.changeDownloadVideo}" />          <dfpvideo:lastModifiedDate>${date.toGMTString()}</dfpvideo:lastModifiedDate>                  </item>`},()=>{
         console.log("Изменено MRSS")
+      })
+      Video.updateOne({_id:req.body.id},{mRSS2:''},()=>{
+        console.log("Изменено MRSS2")
       })
 
     }
@@ -493,6 +520,54 @@ app.post('/delete', (req,res)=>{
 app.post("/alldata",async(req,res)=>{
     console.log("Подключено к бэкэнду")
     const videos=await Video.find({})
+    
+  const filePath=path.join(__dirname,"mrssFiles","mrss.xml")
+  const filePath2=path.join(__dirname,"mrssFiles","mrss2.xml")
+  let A=''
+  for (let el of videos.slice(-50)){
+    A+=el.mRSS 
+  }
+  fs.writeFile(filePath,`<rss xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:media="http://search.yahoo.com/mrss/"
+  xmlns:openSearch="http://a9.com/-/spec/opensearchrss/1.0/"
+  xmlns:dfpvideo="http://api.google.com/dfpvideo"
+  xmlns:tms="http://data.tmsapi.com/v1.1"
+  version="2.0">
+   <channel>
+     <title>ViralBear videos</title>
+     <dfpvideo:version>2</dfpvideo:version>${A}</channel>
+     </rss>`,(err)=>{ 
+       console.log("MRSS CREATED!")
+     })
+
+
+
+
+
+
+     let B=''
+     for (let el2 of videos.slice(-50)){
+       B+=el2.mRSS2
+     }
+     fs.writeFile(filePath2,`<rss xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:media="http://search.yahoo.com/mrss/"
+     xmlns:openSearch="http://a9.com/-/spec/opensearchrss/1.0/"
+     xmlns:dfpvideo="http://api.google.com/dfpvideo"
+     xmlns:tms="http://data.tmsapi.com/v1.1"
+     version="2.0">
+      <channel>
+        <title>ViralBear videos</title>
+        <dfpvideo:version>2</dfpvideo:version>${B}</channel>
+        </rss>`,(err)=>{ 
+          console.log("MRSS2 CREATED!")
+        })
+
+
+
+
+
+
+
     res.json(videos)
     
     
@@ -537,8 +612,8 @@ app.post('/data',fileMiddleware.fields([{
           
           const video = new Video({
             videoId:videoId,
-             mRSS2:`        <item>\n          <media:title>${title}</media:title>\n          <media:description>${description}</media:description>\n          <media:keywords>${tags}</media:keywords>\n          <media:city>${city}</media:city>\n          <media:country>${country}</media:country>\n          <media:category>${category}</media:category>\n          <media:filmingDate>${date}</media:filmingDate>\n          <guid>${videoId} </guid>\n          <media:youtubeLink>${videoLink}</media:youtubeLink>\n          <pubDate>${videoCreateDate}</pubDate>\n          <media:thumbnail url="${upload[1].Location}" />\n          <media:content url="${upload[0].Location}" />\n          <dfpvideo:lastModifiedDate>${lastModif}</dfpvideo:lastModifiedDate>\n          <dfpvideo:lastMediaModifiedDate>${lastModif}</dfpvideo:lastMediaModifiedDate>\n        </item>`,
-             mRSS:`        <item>\n          <media:title>${title}</media:title>\n          <media:description>${description}</media:description>\n          <media:keywords>${tags}</media:keywords>\n          <media:city>${city}</media:city>\n          <media:country>${country}</media:country>\n          <media:category>${category}</media:category>\n          <media:filmingDate>${date}</media:filmingDate>\n          <guid>${videoId} </guid>\n          <media:youtubeLink>${videoLink}</media:youtubeLink>\n          <pubDate>${videoCreateDate}</pubDate>\n          <media:thumbnail url="${upload[1].Location}" />\n          <media:content url="${upload[0].Location}" />\n          <dfpvideo:lastModifiedDate>${lastModif}</dfpvideo:lastModifiedDate>\n          <dfpvideo:lastMediaModifiedDate>${lastModif}</dfpvideo:lastMediaModifiedDate>\n        </item>`,
+             mRSS2:`        <item>          <media:title>${title}</media:title>          <media:description>${description}</media:description>          <media:keywords>${tags}</media:keywords>          <media:city>${city}</media:city>          <media:country>${country}</media:country>          <media:category>${category}</media:category>          <media:filmingDate>${date}</media:filmingDate>          <guid>${videoId} </guid>          <media:youtubeLink>${videoLink}</media:youtubeLink>          <pubDate>${videoCreateDate}</pubDate>          <media:thumbnail url="${upload[1].Location}" />          <media:content url="${upload[0].Location}" />          <dfpvideo:lastModifiedDate>${lastModif}</dfpvideo:lastModifiedDate>                </item>`,
+             mRSS:`        <item>          <media:title>${title}</media:title>          <media:description>${description}</media:description>          <media:keywords>${tags}</media:keywords>          <media:city>${city}</media:city>          <media:country>${country}</media:country>          <media:category>${category}</media:category>          <media:filmingDate>${date}</media:filmingDate>          <guid>${videoId} </guid>          <media:youtubeLink>${videoLink}</media:youtubeLink>          <pubDate>${videoCreateDate}</pubDate>          <media:thumbnail url="${upload[1].Location}" />          <media:content url="${upload[0].Location}" />          <dfpvideo:lastModifiedDate>${lastModif}</dfpvideo:lastModifiedDate>                  </item>`,
             data:{
                 title,description,tags,brandSafe,city,videoCreateDate,country,category,date,videoId,videoLink,downloadVideo:upload[0].Location,downloadPhoto:upload[1].Location,lastModif,
                
@@ -549,7 +624,7 @@ app.post('/data',fileMiddleware.fields([{
         else{
           const video = new Video({
             videoId:videoId,
-            mRSS:`        <item>\n          <media:title>${title}</media:title>\n          <media:description>${description}</media:description>\n          <media:keywords>${tags}</media:keywords>\n          <media:city>${city}</media:city>\n          <media:country>${country}</media:country>\n          <media:category>${category}</media:category>\n          <media:filmingDate>${date}</media:filmingDate>\n          <guid>${videoId} </guid>\n          <media:youtubeLink>${videoLink}</media:youtubeLink>\n          <pubDate>${videoCreateDate}</pubDate>\n          <media:thumbnail url="${upload[1].Location}" />\n          <media:content url="${upload[0].Location}" />\n          <dfpvideo:lastModifiedDate>${lastModif}</dfpvideo:lastModifiedDate>\n          <dfpvideo:lastMediaModifiedDate>${lastModif}</dfpvideo:lastMediaModifiedDate>\n        </item>`,
+            mRSS:`        <item>          <media:title>${title}</media:title>          <media:description>${description}</media:description>          <media:keywords>${tags}</media:keywords>          <media:city>${city}</media:city>          <media:country>${country}</media:country>          <media:category>${category}</media:category>          <media:filmingDate>${date}</media:filmingDate>          <guid>${videoId} </guid>          <media:youtubeLink>${videoLink}</media:youtubeLink>          <pubDate>${videoCreateDate}</pubDate>          <media:thumbnail url="${upload[1].Location}" />          <media:content url="${upload[0].Location}" />          <dfpvideo:lastModifiedDate>${lastModif}</dfpvideo:lastModifiedDate>                  </item>`,
             data:{
                 title,description,brandSafe,tags,videoCreateDate,city,country,category,date,videoId,videoLink,downloadVideo:upload[0].Location,downloadPhoto:upload[1].Location,lastModif,
                 
@@ -576,7 +651,7 @@ app.post('/data',fileMiddleware.fields([{
 //     console.dir(req.body)
     
 //     filePath=path.join(__dirname, req.body.paths,req.body.video_id+".xml" )
-//     fs.writeFile(filePath, `<?xml version="1.0" encoding="UTF-8"?><item><title>${req.body.title}</title><description>${req.body.description}</description><guid>${req.body.video_id}</guid><category>${req.body.category}</category><pubDate>${new Date()}</pubDate> <media:keywords>${req.body.tags}</media:_media_keywords></item>\n`,(err)=>{
+//     fs.writeFile(filePath, `<?xml version="1.0" encoding="UTF-8"?><item><title>${req.body.title}</title><description>${req.body.description}</description><guid>${req.body.video_id}</guid><category>${req.body.category}</category><pubDate>${new Date()}</pubDate> <media:keywords>${req.body.tags}</media:_media_keywords></item>`,(err)=>{
 //         if(err){
 //             throw err
 //         }
@@ -595,7 +670,7 @@ app.post('/data',fileMiddleware.fields([{
 //             }
 //             allxls.push(objectData)
 //             console.log(allxls)
-//             fs.appendFile(filePath2,`<?xml version="1.0" encoding="UTF-8"?><item><title>${req.body.title}</title><description>${req.body.description}</description><guid>${req.body.video_id}</guid><category>${req.body.category}</category><pubDate>${new Date()}</pubDate> <media:keywords>${req.body.tags}</media:_media_keywords></item>\n`,(err)=>{
+//             fs.appendFile(filePath2,`<?xml version="1.0" encoding="UTF-8"?><item><title>${req.body.title}</title><description>${req.body.description}</description><guid>${req.body.video_id}</guid><category>${req.body.category}</category><pubDate>${new Date()}</pubDate> <media:keywords>${req.body.tags}</media:_media_keywords></item>`,(err)=>{
 //     if(err){
 //         throw err
 //     }
@@ -615,29 +690,49 @@ const start=async()=>{
 }
 start()
 
-app.get('/mrss',async(req,res)=>{
+// app.get('/mrss',async(req,res)=>{
+//   const array=await Video.find({})
+//   const filePath=path.join(__dirname,"mrssFiles","mrss.xml")
+
+//   let A=''
+//   for (let el of array.slice(-50)){
+//     A+=el.mRSS 
+//   }
+//   fs.writeFile(filePath,`<rss xmlns:atom="http://www.w3.org/2005/Atom"
+//   xmlns:media="http://search.yahoo.com/mrss/"
+//   xmlns:openSearch="http://a9.com/-/spec/opensearchrss/1.0/"
+//   xmlns:dfpvideo="http://api.google.com/dfpvideo"
+//   xmlns:tms="http://data.tmsapi.com/v1.1"
+//   version="2.0">
+//    <channel>
+//      <title>ViralBear videos</title>
+//      <dfpvideo:version>2</dfpvideo:version>${A}</channel>
+//      </rss>`,(err)=>{ 
+//        console.log("MRSS CREATED!")
+//      })
+//     //     if(err){
+//     //         throw err
+//     //     }
+//     //     console.log("Html created!")
+//     // })}
+      
+
+//     // res.render('index',{
+//     //     array:await Video.find({}),
+//     //     start:'<?xml version="1.0" encoding="UTF-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom"  xmlns:media="http://search.yahoo.com/mrss/"  xmlns:openSearch="http://a9.com/-/spec/opensearchrss/1.0/"  xmlns:dfpvideo="http://api.google.com/dfpvideo"  xmlns:tms="http://data.tmsapi.com/v1.1"  version="2.0">    <channel>      <title>ViralBear videos</title>      <dfpvideo:version>2</dfpvideo:version>',
+//     //     end:'      </channel></rss>'
+//     // })
+// })
+// app.get('/mrss2',async(req,res)=>{
     
     
     
 
       
 
-    res.render('index',{
-        array:await Video.find({}),
-        start:'<?xml version="1.0" encoding="UTF-8"?>\n<rss xmlns:atom="http://www.w3.org/2005/Atom"\n  xmlns:media="http://search.yahoo.com/mrss/"\n  xmlns:openSearch="http://a9.com/-/spec/opensearchrss/1.0/"\n  xmlns:dfpvideo="http://api.google.com/dfpvideo"\n  xmlns:tms="http://data.tmsapi.com/v1.1"\n  version="2.0">\n    <channel>\n      <title>ViralBear videos</title>\n      <dfpvideo:version>2</dfpvideo:version>',
-        end:'      </channel>\n</rss>'
-    })
-})
-app.get('/mrss2',async(req,res)=>{
-    
-    
-    
-
-      
-
-  res.render('index2',{
-      array:await Video.find({}),
-      start:'<?xml version="1.0" encoding="UTF-8"?>\n<rss xmlns:atom="http://www.w3.org/2005/Atom"\n  xmlns:media="http://search.yahoo.com/mrss/"\n  xmlns:openSearch="http://a9.com/-/spec/opensearchrss/1.0/"\n  xmlns:dfpvideo="http://api.google.com/dfpvideo"\n  xmlns:tms="http://data.tmsapi.com/v1.1"\n  version="2.0">\n    <channel>\n      <title>ViralBear videos</title>\n      <dfpvideo:version>2</dfpvideo:version>',
-        end:'      </channel>\n</rss>'
-  })
-})
+//   res.render('index2',{
+//       array:await Video.find({}),
+//       start:'<?xml version="1.0" encoding="UTF-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom"  xmlns:media="http://search.yahoo.com/mrss/"  xmlns:openSearch="http://a9.com/-/spec/opensearchrss/1.0/"  xmlns:dfpvideo="http://api.google.com/dfpvideo"  xmlns:tms="http://data.tmsapi.com/v1.1"  version="2.0">    <channel>      <title>ViralBear videos</title>      <dfpvideo:version>2</dfpvideo:version>',
+//         end:'      </channel></rss>'
+//   })
+// })
